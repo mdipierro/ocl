@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='ocl',
-      version='0.7',
+      version='0.8',
       description='Decorators to compile Python code to C99, OpenCL, and JS',
       author='Massimo Di Pierro',
       author_email='massimo.dipierro@gmail.com',

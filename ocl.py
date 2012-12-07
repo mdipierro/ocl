@@ -565,9 +565,12 @@ if pcl:
             pcl.enqueue_copy(self.queue, output, buffer)
             return output
 
-        def compile(self, kernel=None, constants=None):
+        def compile(self, kernel=None, constants=None, includes=None):
             if not kernel:
-                kernel = self.compiler.convert(constants=constants)
+                kernel = self.compiler.convert(headers=True,
+                                               constants=constants)
+            kernel = '\n'.join(includes or []) + '\n' + kernel
+            print kernel
             return pcl.Program(self.ctx, kernel).build()
 
 
