@@ -570,7 +570,6 @@ if pcl:
                 kernel = self.compiler.convert(headers=True,
                                                constants=constants)
             kernel = '\n'.join(includes or []) + '\n' + kernel
-            print kernel
             return pcl.Program(self.ctx, kernel).build()
 
 
