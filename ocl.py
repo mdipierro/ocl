@@ -278,7 +278,7 @@ class C99Handler(object):
             if isinstance(right, ast.Call) and \
                     right.func.id.startswith('new_'):
                 self.symbols[left.id] = right.func.id[4:]
-                right = right.args[0] if right.args else None
+                right = right.args[0] if right.args else None                
             else:
                 # guess type
                 if isinstance(right, ast.Num) and isinstance(right.n, float):
@@ -289,8 +289,12 @@ class C99Handler(object):
                     self.symbols[left.id] = 'ptr_char'
                 else:
                     raise RuntimeError('unkown C-type %s' % left.id)
-        return '%s = %s;' % (
-            self.t(item.targets[0]), self.t(right)) if right else ''
+            return '%s = (%s)%s;' % (
+                self.t(item.targets[0]), self.make_type(self.symbols[left.id]),
+                self.t(right)) if right else ''
+        else:
+            return '%s = %s;' % (self.t(item.targets[0]),self.t(right)) if right else ''
+                                 
 
     def is_Call(self, item, pad):
         func = self.t(item.func)
