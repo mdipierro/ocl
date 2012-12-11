@@ -366,7 +366,7 @@ class C99Handler(object):
         self.rettype = None  # the return type of the function None is void
         self.symbols = {}
         code = self.is_FunctionDef(item, '', types)
-        vars = ''.join('%s%s %s;\n' % (self.sep, v, k)
+        vars = ''.join('%s%s %s;\n' % (self.sep, self.make_type(v), k)
                        for k, v in self.symbols.items())
         code = code.replace('/*@VARS*/', vars)
         if self.rettype is not None:
