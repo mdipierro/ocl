@@ -133,7 +133,7 @@ class C99Handler(object):
     special_functions = {
         'REFD': lambda args: '(*(%s))' % ', '.join(args),
         'ADDR': lambda args: '(&(%s))' % ', '.join(args),
-        'CAST': lambda args: '(%s)(%s)' % (
+        'CAST': lambda args: '(%s)%s' % (
             C99Handler.make_type(args[0]), args[1])
     }
     substitutions = {'NULL': 'NULL', 'True': '1', 'False': '0'}
@@ -303,7 +303,7 @@ class C99Handler(object):
         return '{%s}' % ', '.join(self.t(k, pad) for k in item.elts)
 
     def is_Tuple(self, item, pad):
-        return self.is_List(item, pad)
+        return '(%s)' % ', '.join(self.t(k, pad) for k in item.elts)
 
     def is_Num(self, item, pad):
         return self.represent(item.n)
